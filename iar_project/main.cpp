@@ -1,5 +1,8 @@
 #include "stm32l0xx.h"
 
+#include <string.h>
+#include <stdio.h>
+
 /* Time-out values */
 #define HSI_TIMEOUT_VALUE          ((uint32_t)100)  /* 100 ms */
 #define PLL_TIMEOUT_VALUE          ((uint32_t)100)  /* 100 ms */
@@ -38,8 +41,7 @@ int main(void) {
   int ii = 4;
   
   /* Infinite loop */
-  while (1)
-  {
+  while (1) {
     printf("Test string %d \n", ii);
   }
 }
@@ -224,21 +226,6 @@ void SysTick_Handler(void)
 }
 
 
-/******************************************************************************/
-/*                 STM32L0xx Peripherals Interrupt Handlers                   */
-/*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
-/*  available peripheral interrupt handler's name please refer to the startup */
-/*  file (startup_stm32l0xx.s).                                               */
-/******************************************************************************/
-
-/**
-  * Brief   This function handles PPP interrupt request.
-  * Param   None
-  * Retval  None
-  */
-/*void PPP_IRQHandler(void)
-{
-}*/
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+extern "C" void assert_failed(char* file, unsigned long line) {
+  while(1);
+}

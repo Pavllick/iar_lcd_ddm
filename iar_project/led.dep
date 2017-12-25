@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>2</fileVersion>
+    <fileChecksum>2274012089</fileChecksum>
+    <configuration>
+        <name>Project</name>
+        <outputs>
+            <file>$PROJ_DIR$\Output\Obj\led.pbd</file>
+            <file>$PROJ_DIR$\Output\Exe\led.hex</file>
+            <file>$PROJ_DIR$\Output\Obj\startup_stm32l053xx.o</file>
+            <file>$TOOLKIT_DIR$\lib\m6M_tl.a</file>
+            <file>$PROJ_DIR$\..\main.c</file>
+            <file>$PROJ_DIR$\Output\List\project.map</file>
+            <file>$PROJ_DIR$\Output\Obj\system_stm32l0xx.pbi</file>
+            <file>$TOOLKIT_DIR$\lib\dl6M_tln.a</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$PROJ_DIR$\source\Include\core_cm0plus.h</file>
+            <file>$PROJ_DIR$\source\system_stm32l0xx.c</file>
+            <file>$PROJ_DIR$\source\stm32l053xx.h</file>
+            <file>$PROJ_DIR$\source\stm32l0xx.h</file>
+            <file>$PROJ_DIR$\source\Include\core_cmInstr.h</file>
+            <file>$PROJ_DIR$\source\system_stm32l0xx.h</file>
+            <file>$PROJ_DIR$\source\Include\core_cmFunc.h</file>
+            <file>$PROJ_DIR$\main.cpp</file>
+            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+            <file>$TOOLKIT_DIR$\lib\rt6M_tl.a</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Include\core_cmInstr.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\iar_project\source\system_stm32l0xx.c</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Include\core_cm0plus.h</file>
+            <file>$PROJ_DIR$\Output\Obj\main.pbi</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\iar_project\source\startup_stm32l053xx.s</file>
+            <file>$PROJ_DIR$\Output\Obj\system_stm32l0xx.o</file>
+            <file>$PROJ_DIR$\Output\Obj\system_stm32l0xx.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Include\core_cmFunc.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$PROJ_DIR$\Output\Obj\main.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\..\iar_project\source\main.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\system_stm32l0xx.c</file>
+            <file>$PROJ_DIR$\Output\Exe\project.out</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l053xx.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l0xx.h</file>
+            <file>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\iar\startup_stm32l053xx.s</file>
+            <file>$PROJ_DIR$\Output\Obj\main.o</file>
+            <file>$PROJ_DIR$\Output\Exe\project.hex</file>
+            <file>$TOOLKIT_DIR$\lib\dlpp6M_tl_nc.a</file>
+            <file>$PROJ_DIR$\source\startup_stm32l053xx.s</file>
+            <file>$PROJ_DIR$\source\main.c</file>
+            <file>$PROJ_DIR$\source\linker\stm32l053xx_flash.icf</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+        </outputs>
+        <file>
+            <name>$PROJ_DIR$\..\main.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 31</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 42</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 34 27 39 36 9 29 22 30 8 35 28 40 20 32</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40 39 22 30 9 35 32 8 34 20 28 27 29 36</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\system_stm32l0xx.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 26</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 6</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 25</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 15 16 9 34 27 28 12 10 30 8 35 13 14 32</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 13 12 10 30 9 35 32 8 34 14 28 27 16 15</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.cpp</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 31</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 42</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 35 10 9 48 30 14 51 12 15 28 50 13 16 32 8 34 27 49</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 13 12 10 30 9 35 32 8 34 14 28 27 16 15 51 50 49 48</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 38 5</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\iar_project\source\system_stm32l0xx.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 26</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 6</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\iar_project\source\startup_stm32l053xx.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\iar_project\source\main.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 31</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\system_stm32l0xx.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 26</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 6</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 25</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 34 27 9 39 36 29 22 30 8 35 28 40 20 32</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40 39 22 30 9 35 32 8 34 20 28 27 29 36</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Output\Exe\project.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 1</file>
+                </tool>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 5</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 47 42 2 25 18 19 44 3 7</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\Drivers\CMSIS\Device\ST\STM32L0xx\Source\Templates\iar\startup_stm32l053xx.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\startup_stm32l053xx.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 2</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\main.c</name>
+            <outputs>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 31</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 42</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 34 27 12 15 9 16 10 30 8 35 28 13 14 32</file>
+                </tool>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 13 12 10 30 9 35 32 8 34 14 28 27 16 15</file>
+                </tool>
+            </inputs>
+        </file>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\..\..\..\..\iar_project\source\system_stm32l0xx.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\..\..\..\..\iar_project\source\main.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+    </configuration>
+</project>

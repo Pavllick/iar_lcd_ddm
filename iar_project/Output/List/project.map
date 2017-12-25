@@ -1,0 +1,303 @@
+###############################################################################
+#
+# IAR ELF Linker V8.11.2.13589/W32 for ARM                25/Dec/2017  10:05:48
+# Copyright 2007-2017 IAR Systems AB.
+#
+#    Output file  =  
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Exe\project.out
+#    Map file     =  
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\List\project.map
+#    Command line =  
+#        -f C:\Users\Admin\AppData\Local\Temp\EW16AD.tmp
+#        (C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\main.o
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\startup_stm32l053xx.o
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\system_stm32l0xx.o
+#        --redirect _Printf=_PrintfSmallNoMb --redirect _Scanf=_ScanfSmallNoMb
+#        -o
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Exe\project.out
+#        --map
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\List\project.map
+#        --config
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\linker\stm32l053xx_flash.icf
+#        --semihosting --entry __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor        = *
+__CPP_Exceptions = Disabled
+__CPP_Language   = C++14
+__SystemLibrary  = DLib
+__dlib_version   = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because no calls to memory allocation
+functions were found in the application outside of system library
+functions, and there are calls to deallocation functions in the
+application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x08000000 { ro section .intvec };
+"P1":  place in [from 0x08000000 to 0x0800ffff] { ro };
+define block CSTACK with size = 1K, alignment = 8 { };
+define block HEAP with size = 512, alignment = 8 { };
+"P2":  place in [from 0x20000000 to 0x20001fff] {
+          rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section            Kind        Address   Size  Object
+  -------            ----        -------   ----  ------
+"A0":                                      0xc0
+  .intvec            ro code  0x08000000   0xc0  startup_stm32l053xx.o [1]
+                            - 0x080000c0   0xc0
+
+"P1":                                     0xabb
+  .text              ro code  0x080000c0  0x52c  xprintfsmall_nomb.o [3]
+  .text              ro code  0x080005ec   0x16  strchr.o [4]
+  .text              ro code  0x08000602    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000604   0x48  xfail_s.o [3]
+  .text              ro code  0x0800064c   0x10  strlen.o [4]
+  .text              ro code  0x0800065c   0x18  memchr.o [4]
+  .text              ro code  0x08000674   0xae  I32DivModFast.o [4]
+  .text              ro code  0x08000722    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000724   0x36  I32DivMod.o [4]
+  .text              ro code  0x0800075a    0xa  abort.o [3]
+  .text              ro code  0x08000764    0x2  IntDivZer.o [4]
+  .text              ro code  0x08000766    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000768   0x14  exit.o [5]
+  .text              ro code  0x0800077c   0x68  iarttio.o [5]
+  .text              ro code  0x080007e4    0x8  XShttio.o [3]
+  .text              ro code  0x080007ec  0x15c  main.o [1]
+  .text              ro code  0x08000948   0x28  printf.o [3]
+  .text              ro code  0x08000970   0x58  system_stm32l0xx.o [1]
+  .text              ro code  0x080009c8   0x3c  packbits_init_single.o [4]
+  .text              ro code  0x08000a04   0x28  data_init.o [4]
+  .text              ro code  0x08000a2c   0x22  iarwrite.o [5]
+  .iar.init_table    const    0x08000a50   0x10  - Linker created -
+  .text              ro code  0x08000a60   0x20  iarwstd.o [5]
+  .text              ro code  0x08000a80   0x1e  putchar.o [3]
+  .text              ro code  0x08000a9e   0x10  write.o [5]
+  .text              ro code  0x08000aae   0x1e  dwrite.o [5]
+  .text              ro code  0x08000acc    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000ad0   0x1a  cmain.o [4]
+  .text              ro code  0x08000aea    0x4  low_level_init.o [3]
+  .text              ro code  0x08000aee    0x8  exit.o [3]
+  .text              ro code  0x08000af6    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000af8    0xa  cexit.o [4]
+  .text              ro code  0x08000b02   0x16  xprout.o [3]
+  .text              ro code  0x08000b18   0x10  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b28    0xc  cstartup_M.o [4]
+  .text              ro code  0x08000b34    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b36    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b38    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b3a    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b3c    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b3e    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b40    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b42    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b44    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b46    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b48    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b4a    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b4c    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b4e    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b50    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b52    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b54    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b56    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b58    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b5a    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b5c    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b5e    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b60    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b62    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b64    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b66    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b68    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000b6a    0x2  startup_stm32l053xx.o [1]
+  .rodata            const    0x08000b6c    0x1  unwind_debug.o [5]
+  .rodata            const    0x08000b6d    0x0  packbits_init_single.o [4]
+  Initializer bytes  const    0x08000b6d    0xe  <for P2-1>
+                            - 0x08000b7b  0xabb
+
+"P2", part 1 of 2:                         0x1c
+  P2-1                        0x20000000   0x1c  <Init block>
+    .data            inited   0x20000000   0x10  main.o [1]
+    .data            inited   0x20000010    0x8  XShttio.o [3]
+    .bss             inited   0x20000018    0x4  xfail_s.o [3]
+                            - 0x2000001c   0x1c
+
+"P2", part 2 of 2:                        0x400
+  CSTACK                      0x20000020  0x400  <Block>
+    CSTACK           uninit   0x20000020  0x400  <Block tail>
+                            - 0x20000420  0x400
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Copy/packbits (__iar_packbits_init_single3)
+    1 source range, total size 0xe (50% of destination):
+          0x08000b6d   0xe
+    1 destination range, total size 0x1c:
+          0x20000000  0x1c
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                  ro code  ro data  rw data
+    ------                  -------  -------  -------
+C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj: [1]
+    main.o                      348        8       16
+    startup_stm32l053xx.o       274
+    system_stm32l0xx.o           88
+    -------------------------------------------------
+    Total:                      710        8       16
+
+command line: [2]
+    -------------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    XShttio.o                     8        4        8
+    abort.o                      10
+    exit.o                        8
+    low_level_init.o              4
+    printf.o                     40
+    putchar.o                    30
+    xfail_s.o                    72        2        4
+    xprintfsmall_nomb.o       1 324
+    xprout.o                     22
+    -------------------------------------------------
+    Total:                    1 518        6       12
+
+rt6M_tl.a: [4]
+    I32DivMod.o                  54
+    I32DivModFast.o             174
+    IntDivZer.o                   2
+    cexit.o                      10
+    cmain.o                      26
+    cstartup_M.o                 12
+    data_init.o                  40
+    memchr.o                     24
+    packbits_init_single.o       60
+    strchr.o                     22
+    strlen.o                     16
+    -------------------------------------------------
+    Total:                      440
+
+shb_l.a: [5]
+    dwrite.o                     30
+    exit.o                       20
+    iarttio.o                   104
+    iarwrite.o                   34
+    iarwstd.o                    32
+    unwind_debug.o                         1
+    write.o                      16
+    -------------------------------------------------
+    Total:                      236        1
+
+    Gaps                          2        2
+    Linker created                        16    1 024
+-----------------------------------------------------
+    Grand Total:              2 906       33    1 052
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.iar.init_table$$Base   0x08000a50          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x08000a60          --   Gb  - Linker created -
+?main                   0x08000ad1         Code  Gb  cmain.o [4]
+CSTACK$$Base            0x20000020          --   Gb  - Linker created -
+CSTACK$$Limit           0x20000420          --   Gb  - Linker created -
+LoadInt                 0x08000311   0x5a  Code  Lc  xprintfsmall_nomb.o [3]
+Region$$Table$$Base     0x08000a50          --   Gb  - Linker created -
+Region$$Table$$Limit    0x08000a60          --   Gb  - Linker created -
+SysTick_Handler()::error_temp
+                        0x20000002    0x2  Data  Lc  main.o [1]
+SysTick_Handler()::long_counter
+                        0x20000008    0x4  Data  Lc  main.o [1]
+SysTick_Handler()::short_counter
+                        0x2000000c    0x4  Data  Lc  main.o [1]
+SystemInit              0x08000971   0x40  Code  Gb  system_stm32l0xx.o [1]
+Tick                    0x20000004    0x4  Data  Lc  main.o [1]
+[local to main_cpp]::SysTick_Config(unsigned int)
+                        0x080007ed   0x2e  Code  Lc  main.o [1]
+_LitobSmallNoMb         0x080004ad   0xec  Code  Lc  xprintfsmall_nomb.o [3]
+_PrintfSmallNoMb        0x080000c1  0x244  Code  Gb  xprintfsmall_nomb.o [3]
+_Prout                  0x08000b03   0x16  Code  Gb  xprout.o [3]
+_PutcharsSmallNoMb      0x0800059d   0x32  Code  Lc  xprintfsmall_nomb.o [3]
+_PutfldSmallNoMb        0x0800036d  0x140  Code  Lc  xprintfsmall_nomb.o [3]
+__aeabi_idiv0           0x08000765         Code  Gb  IntDivZer.o [4]
+__aeabi_uidiv           0x08000675         Code  Gb  I32DivModFast.o [4]
+__aeabi_uidivmod        0x08000675         Code  Gb  I32DivModFast.o [4]
+__cmain                 0x08000ad1         Code  Gb  cmain.o [4]
+__dwrite                0x08000aaf   0x1e  Code  Gb  dwrite.o [5]
+__exit                  0x08000769   0x14  Code  Gb  exit.o [5]
+__iar_Fail_s            0x08000605   0x22  Code  Gb  xfail_s.o [3]
+__iar_close_ttio        0x0800077d   0x2c  Code  Gb  iarttio.o [5]
+__iar_data_init3        0x08000a05   0x28  Code  Gb  data_init.o [4]
+__iar_debug_exceptions  0x08000b6c    0x1  Data  Gb  unwind_debug.o [5]
+__iar_get_ttio          0x080007a9   0x38  Code  Gb  iarttio.o [5]
+__iar_lookup_ttioh      0x080007e5    0x8  Code  Gb  XShttio.o [3]
+__iar_packbits_init_single3
+                        0x080009c9   0x3c  Code  Gb  packbits_init_single.o [4]
+__iar_program_start     0x08000b29         Code  Gb  cstartup_M.o [4]
+__iar_sh_stdout         0x08000a61   0x20  Code  Gb  iarwstd.o [5]
+__iar_sh_write          0x08000a2d   0x22  Code  Gb  iarwrite.o [5]
+__iar_small_uidiv       0x08000725         Code  Gb  I32DivMod.o [4]
+__iar_small_uidivmod    0x08000725         Code  Gb  I32DivMod.o [4]
+__iar_systems$$module {Abs}
+                        0x00000001         Data  Gb  command line/config [2]
+__iar_ttio_handles      0x20000010    0x8  Data  Lc  XShttio.o [3]
+__low_level_init        0x08000aeb    0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x08000000         Data  Gb  startup_stm32l053xx.o [1]
+__write                 0x08000a9f   0x10  Code  Gb  write.o [5]
+_call_main              0x08000add         Code  Gb  cmain.o [4]
+_exit                   0x08000af9         Code  Gb  cexit.o [4]
+_main                   0x08000ae7         Code  Gb  cmain.o [4]
+abort                   0x0800075b    0xa  Code  Gb  abort.o [3]
+error                   0x20000000    0x2  Data  Gb  main.o [1]
+exit                    0x08000aef    0x8  Code  Gb  exit.o [3]
+main                    0x0800081d   0xec  Code  Gb  main.o [1]
+memchr                  0x0800065d   0x18  Code  Gb  memchr.o [4]
+printf                  0x08000949   0x28  Code  Gb  printf.o [3]
+putchar                 0x08000a81   0x1e  Code  Gb  putchar.o [3]
+sec_hand                0x20000018    0x4  Data  Lc  xfail_s.o [3]
+strchr                  0x080005ed    0x2  Code  Gb  strchr.o [4]
+strlen                  0x0800064d   0x10  Code  Gb  strlen.o [4]
+
+
+[1] = C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+[5] = shb_l.a
+
+  2 906 bytes of readonly  code memory
+     33 bytes of readonly  data memory
+  1 052 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
