@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<workspace>
-    <project>
-        <path>$WS_DIR$\..\STM32L0xx_Snippets_Package_V1.2.0\Projects\CLOCK CONTROLLER\03_MCO_GPIO_Configuration\EWARM\project.ewp</path>
-    </project>
-    <batchBuild />
-</workspace>

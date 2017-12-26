@@ -8,6 +8,10 @@ C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\Inclu
 -I
 C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\linker
 -I
+C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\lld
+-I
+C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\delay
+-I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\inc\c
@@ -19,6 +23,10 @@ C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source
 C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\Include
 -I
 C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\linker
+-I
+C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\lld
+-I
+C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\delay
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

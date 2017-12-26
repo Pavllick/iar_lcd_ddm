@@ -1158,6 +1158,75 @@
         </settings>
     </configuration>
     <group>
+        <name>delay</name>
+        <file>
+            <name>$PROJ_DIR$\source\delay\delay.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\delay\delay.h</name>
+        </file>
+    </group>
+    <group>
+        <name>source</name>
+        <group>
+            <name>Include</name>
+            <file>
+                <name>$PROJ_DIR$\source\Include\arm_common_tables.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\arm_const_structs.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\arm_math.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cm0.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cm0plus.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cm3.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cm4.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cm7.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cmFunc.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cmInstr.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_cmSimd.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_sc000.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\Include\core_sc300.h</name>
+            </file>
+        </group>
+        <file>
+            <name>$PROJ_DIR$\source\led_hendler.cpp</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\led_hendler.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\stm32l053xx.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\stm32l0xx.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\source\system_stm32l0xx.h</name>
+        </file>
+    </group>
+    <group>
         <name>User</name>
         <file>
             <name>$PROJ_DIR$\main.cpp</name>

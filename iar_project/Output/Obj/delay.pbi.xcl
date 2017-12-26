@@ -1,4 +1,4 @@
-"C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\system_stm32l0xx.c"
+"C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\source\delay\delay.c"
 -std=c++14
 -ferror-limit=0
 -I

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V8.11.2.13589/W32 for ARM                25/Dec/2017  10:05:48
+# IAR ELF Linker V8.11.2.13589/W32 for ARM                26/Dec/2017  15:40:20
 # Copyright 2007-2017 IAR Systems AB.
 #
 #    Output file  =  
@@ -8,8 +8,10 @@
 #    Map file     =  
 #        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\List\project.map
 #    Command line =  
-#        -f C:\Users\Admin\AppData\Local\Temp\EW16AD.tmp
-#        (C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\main.o
+#        -f C:\Users\Admin\AppData\Local\Temp\EWC806.tmp
+#        (C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\delay.o
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\led_hendler.o
+#        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\main.o
 #        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\startup_stm32l053xx.o
 #        C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj\system_stm32l0xx.o
 #        --redirect _Printf=_PrintfSmallNoMb --redirect _Scanf=_ScanfSmallNoMb
@@ -62,86 +64,73 @@ initialize by copy { rw };
   .intvec            ro code  0x08000000   0xc0  startup_stm32l053xx.o [1]
                             - 0x080000c0   0xc0
 
-"P1":                                     0xabb
-  .text              ro code  0x080000c0  0x52c  xprintfsmall_nomb.o [3]
-  .text              ro code  0x080005ec   0x16  strchr.o [4]
-  .text              ro code  0x08000602    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000604   0x48  xfail_s.o [3]
-  .text              ro code  0x0800064c   0x10  strlen.o [4]
-  .text              ro code  0x0800065c   0x18  memchr.o [4]
-  .text              ro code  0x08000674   0xae  I32DivModFast.o [4]
-  .text              ro code  0x08000722    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000724   0x36  I32DivMod.o [4]
-  .text              ro code  0x0800075a    0xa  abort.o [3]
-  .text              ro code  0x08000764    0x2  IntDivZer.o [4]
-  .text              ro code  0x08000766    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000768   0x14  exit.o [5]
-  .text              ro code  0x0800077c   0x68  iarttio.o [5]
-  .text              ro code  0x080007e4    0x8  XShttio.o [3]
-  .text              ro code  0x080007ec  0x15c  main.o [1]
-  .text              ro code  0x08000948   0x28  printf.o [3]
-  .text              ro code  0x08000970   0x58  system_stm32l0xx.o [1]
-  .text              ro code  0x080009c8   0x3c  packbits_init_single.o [4]
-  .text              ro code  0x08000a04   0x28  data_init.o [4]
-  .text              ro code  0x08000a2c   0x22  iarwrite.o [5]
-  .iar.init_table    const    0x08000a50   0x10  - Linker created -
-  .text              ro code  0x08000a60   0x20  iarwstd.o [5]
-  .text              ro code  0x08000a80   0x1e  putchar.o [3]
-  .text              ro code  0x08000a9e   0x10  write.o [5]
-  .text              ro code  0x08000aae   0x1e  dwrite.o [5]
-  .text              ro code  0x08000acc    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000ad0   0x1a  cmain.o [4]
-  .text              ro code  0x08000aea    0x4  low_level_init.o [3]
-  .text              ro code  0x08000aee    0x8  exit.o [3]
-  .text              ro code  0x08000af6    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000af8    0xa  cexit.o [4]
-  .text              ro code  0x08000b02   0x16  xprout.o [3]
-  .text              ro code  0x08000b18   0x10  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b28    0xc  cstartup_M.o [4]
-  .text              ro code  0x08000b34    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b36    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b38    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b3a    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b3c    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b3e    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b40    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b42    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b44    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b46    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b48    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b4a    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b4c    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b4e    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b50    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b52    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b54    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b56    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b58    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b5a    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b5c    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b5e    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b60    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b62    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b64    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b66    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b68    0x2  startup_stm32l053xx.o [1]
-  .text              ro code  0x08000b6a    0x2  startup_stm32l053xx.o [1]
-  .rodata            const    0x08000b6c    0x1  unwind_debug.o [5]
-  .rodata            const    0x08000b6d    0x0  packbits_init_single.o [4]
-  Initializer bytes  const    0x08000b6d    0xe  <for P2-1>
-                            - 0x08000b7b  0xabb
+"P1":                                     0x66a
+  .text              ro code  0x080000c0  0x3fc  led_hendler.o [1]
+  .text              ro code  0x080004bc   0x24  ABIassert.o [5]
+  .text              ro code  0x080004e0    0xa  abort.o [3]
+  .text              ro code  0x080004ea    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080004ec   0x14  exit.o [5]
+  .text              ro code  0x08000500   0x58  system_stm32l0xx.o [1]
+  .text              ro code  0x08000558   0x4c  main.o [1]
+  .text              ro code  0x080005a4   0x36  I32DivMod.o [4]
+  .text              ro code  0x080005da    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080005dc    0x2  IntDivZer.o [4]
+  .text              ro code  0x080005de   0x3c  packbits_init_single.o [4]
+  .text              ro code  0x0800061a    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x0800061c   0x28  data_init.o [4]
+  .iar.init_table    const    0x08000644   0x10  - Linker created -
+  .text              ro code  0x08000654   0x1c  delay.o [1]
+  .text              ro code  0x08000670   0x1a  cmain.o [4]
+  .text              ro code  0x0800068a    0x4  low_level_init.o [3]
+  .text              ro code  0x0800068e    0x8  exit.o [3]
+  .text              ro code  0x08000696    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x08000698    0xa  cexit.o [4]
+  .text              ro code  0x080006a2    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006a4   0x10  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006b4    0xc  cstartup_M.o [4]
+  .text              ro code  0x080006c0    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006c2    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006c4    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006c6    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006c8    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006ca    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006cc    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006ce    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006d0    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006d2    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006d4    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006d6    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006d8    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006da    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006dc    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006de    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006e0    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006e2    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006e4    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006e6    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006e8    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006ea    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006ec    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006ee    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006f0    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006f2    0x2  startup_stm32l053xx.o [1]
+  .text              ro code  0x080006f4    0x2  startup_stm32l053xx.o [1]
+  .rodata            const    0x080006f6    0x1  unwind_debug.o [5]
+  .rodata            const    0x080006f7    0x0  packbits_init_single.o [4]
+  Initializer bytes  const    0x080006f7   0x33  <for P2-1>
+                            - 0x0800072a  0x66a
 
-"P2", part 1 of 2:                         0x1c
-  P2-1                        0x20000000   0x1c  <Init block>
-    .data            inited   0x20000000   0x10  main.o [1]
-    .data            inited   0x20000010    0x8  XShttio.o [3]
-    .bss             inited   0x20000018    0x4  xfail_s.o [3]
-                            - 0x2000001c   0x1c
+"P2", part 1 of 2:                         0x40
+  P2-1                        0x20000000   0x40  <Init block>
+    .data            inited   0x20000000   0x18  led_hendler.o [1]
+    .data            inited   0x20000018   0x20  system_stm32l0xx.o [1]
+    .bss             inited   0x20000038    0x8  delay.o [1]
+                            - 0x20000040   0x40
 
 "P2", part 2 of 2:                        0x400
-  CSTACK                      0x20000020  0x400  <Block>
-    CSTACK           uninit   0x20000020  0x400  <Block tail>
-                            - 0x20000420  0x400
+  CSTACK                      0x20000040  0x400  <Block>
+    CSTACK           uninit   0x20000040  0x400  <Block tail>
+                            - 0x20000440  0x400
 
 
 *******************************************************************************
@@ -151,10 +140,10 @@ initialize by copy { rw };
           Address     Size
           -------     ----
 Copy/packbits (__iar_packbits_init_single3)
-    1 source range, total size 0xe (50% of destination):
-          0x08000b6d   0xe
-    1 destination range, total size 0x1c:
-          0x20000000  0x1c
+    1 source range, total size 0x33 (79% of destination):
+          0x080006f7  0x33
+    1 destination range, total size 0x40:
+          0x20000000  0x40
 
 
 
@@ -165,59 +154,46 @@ Copy/packbits (__iar_packbits_init_single3)
     Module                  ro code  ro data  rw data
     ------                  -------  -------  -------
 C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj: [1]
-    main.o                      348        8       16
-    startup_stm32l053xx.o       274
-    system_stm32l0xx.o           88
+    delay.o                      28        7        8
+    led_hendler.o             1 020       19       24
+    main.o                       76
+    startup_stm32l053xx.o       272
+    system_stm32l0xx.o           88       25       32
     -------------------------------------------------
-    Total:                      710        8       16
+    Total:                    1 484       51       64
 
 command line: [2]
     -------------------------------------------------
     Total:
 
 dl6M_tln.a: [3]
-    XShttio.o                     8        4        8
     abort.o                      10
     exit.o                        8
     low_level_init.o              4
-    printf.o                     40
-    putchar.o                    30
-    xfail_s.o                    72        2        4
-    xprintfsmall_nomb.o       1 324
-    xprout.o                     22
     -------------------------------------------------
-    Total:                    1 518        6       12
+    Total:                       22
 
 rt6M_tl.a: [4]
     I32DivMod.o                  54
-    I32DivModFast.o             174
     IntDivZer.o                   2
     cexit.o                      10
     cmain.o                      26
     cstartup_M.o                 12
     data_init.o                  40
-    memchr.o                     24
     packbits_init_single.o       60
-    strchr.o                     22
-    strlen.o                     16
     -------------------------------------------------
-    Total:                      440
+    Total:                      204
 
 shb_l.a: [5]
-    dwrite.o                     30
+    ABIassert.o                  36
     exit.o                       20
-    iarttio.o                   104
-    iarwrite.o                   34
-    iarwstd.o                    32
     unwind_debug.o                         1
-    write.o                      16
     -------------------------------------------------
-    Total:                      236        1
+    Total:                       56        1
 
-    Gaps                          2        2
     Linker created                        16    1 024
 -----------------------------------------------------
-    Grand Total:              2 906       33    1 052
+    Grand Total:              1 766       68    1 088
 
 
 *******************************************************************************
@@ -226,67 +202,53 @@ shb_l.a: [5]
 
 Entry                      Address   Size  Type      Object
 -----                      -------   ----  ----      ------
-.iar.init_table$$Base   0x08000a50          --   Gb  - Linker created -
-.iar.init_table$$Limit  0x08000a60          --   Gb  - Linker created -
-?main                   0x08000ad1         Code  Gb  cmain.o [4]
-CSTACK$$Base            0x20000020          --   Gb  - Linker created -
-CSTACK$$Limit           0x20000420          --   Gb  - Linker created -
-LoadInt                 0x08000311   0x5a  Code  Lc  xprintfsmall_nomb.o [3]
-Region$$Table$$Base     0x08000a50          --   Gb  - Linker created -
-Region$$Table$$Limit    0x08000a60          --   Gb  - Linker created -
-SysTick_Handler()::error_temp
-                        0x20000002    0x2  Data  Lc  main.o [1]
-SysTick_Handler()::long_counter
-                        0x20000008    0x4  Data  Lc  main.o [1]
-SysTick_Handler()::short_counter
-                        0x2000000c    0x4  Data  Lc  main.o [1]
-SystemInit              0x08000971   0x40  Code  Gb  system_stm32l0xx.o [1]
-Tick                    0x20000004    0x4  Data  Lc  main.o [1]
-[local to main_cpp]::SysTick_Config(unsigned int)
-                        0x080007ed   0x2e  Code  Lc  main.o [1]
-_LitobSmallNoMb         0x080004ad   0xec  Code  Lc  xprintfsmall_nomb.o [3]
-_PrintfSmallNoMb        0x080000c1  0x244  Code  Gb  xprintfsmall_nomb.o [3]
-_Prout                  0x08000b03   0x16  Code  Gb  xprout.o [3]
-_PutcharsSmallNoMb      0x0800059d   0x32  Code  Lc  xprintfsmall_nomb.o [3]
-_PutfldSmallNoMb        0x0800036d  0x140  Code  Lc  xprintfsmall_nomb.o [3]
-__aeabi_idiv0           0x08000765         Code  Gb  IntDivZer.o [4]
-__aeabi_uidiv           0x08000675         Code  Gb  I32DivModFast.o [4]
-__aeabi_uidivmod        0x08000675         Code  Gb  I32DivModFast.o [4]
-__cmain                 0x08000ad1         Code  Gb  cmain.o [4]
-__dwrite                0x08000aaf   0x1e  Code  Gb  dwrite.o [5]
-__exit                  0x08000769   0x14  Code  Gb  exit.o [5]
-__iar_Fail_s            0x08000605   0x22  Code  Gb  xfail_s.o [3]
-__iar_close_ttio        0x0800077d   0x2c  Code  Gb  iarttio.o [5]
-__iar_data_init3        0x08000a05   0x28  Code  Gb  data_init.o [4]
-__iar_debug_exceptions  0x08000b6c    0x1  Data  Gb  unwind_debug.o [5]
-__iar_get_ttio          0x080007a9   0x38  Code  Gb  iarttio.o [5]
-__iar_lookup_ttioh      0x080007e5    0x8  Code  Gb  XShttio.o [3]
+.iar.init_table$$Base   0x08000644          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x08000654          --   Gb  - Linker created -
+?main                   0x08000671         Code  Gb  cmain.o [4]
+AHBPrescTable           0x20000018   0x10  Data  Lc  system_stm32l0xx.o [1]
+CSTACK$$Base            0x20000040          --   Gb  - Linker created -
+CSTACK$$Limit           0x20000440          --   Gb  - Linker created -
+PLLMulTable             0x20000028    0xc  Data  Lc  system_stm32l0xx.o [1]
+Region$$Table$$Base     0x08000644          --   Gb  - Linker created -
+Region$$Table$$Limit    0x08000654          --   Gb  - Linker created -
+SysTick_Handler         0x08000655   0x16  Code  Gb  delay.o [1]
+SystemCoreClock         0x20000034    0x4  Data  Gb  system_stm32l0xx.o [1]
+SystemInit              0x08000501   0x40  Code  Gb  system_stm32l0xx.o [1]
+[local to led_hendler_cpp]::gpioPinMode(GPIO_TypeDef *, unsigned char, unsigned char)
+                        0x08000179   0x78  Code  Lc  led_hendler.o [1]
+[local to led_hendler_cpp]::gpioSetPin(GPIO_TypeDef *, unsigned char)
+                        0x080000c1   0x5a  Code  Lc  led_hendler.o [1]
+[local to led_hendler_cpp]::gpioTogglePin(GPIO_TypeDef *, unsigned char)
+                        0x0800011d   0x5a  Code  Lc  led_hendler.o [1]
+__aeabi_assert          0x080004bd   0x24  Code  Gb  ABIassert.o [5]
+__aeabi_idiv0           0x080005dd         Code  Gb  IntDivZer.o [4]
+__cmain                 0x08000671         Code  Gb  cmain.o [4]
+__exit                  0x080004ed   0x14  Code  Gb  exit.o [5]
+__iar_data_init3        0x0800061d   0x28  Code  Gb  data_init.o [4]
+__iar_debug_exceptions  0x080006f6    0x1  Data  Gb  unwind_debug.o [5]
 __iar_packbits_init_single3
-                        0x080009c9   0x3c  Code  Gb  packbits_init_single.o [4]
-__iar_program_start     0x08000b29         Code  Gb  cstartup_M.o [4]
-__iar_sh_stdout         0x08000a61   0x20  Code  Gb  iarwstd.o [5]
-__iar_sh_write          0x08000a2d   0x22  Code  Gb  iarwrite.o [5]
-__iar_small_uidiv       0x08000725         Code  Gb  I32DivMod.o [4]
-__iar_small_uidivmod    0x08000725         Code  Gb  I32DivMod.o [4]
+                        0x080005df   0x3c  Code  Gb  packbits_init_single.o [4]
+__iar_program_start     0x080006b5         Code  Gb  cstartup_M.o [4]
+__iar_small_uidiv       0x080005a5         Code  Gb  I32DivMod.o [4]
+__iar_small_uidivmod    0x080005a5         Code  Gb  I32DivMod.o [4]
 __iar_systems$$module {Abs}
                         0x00000001         Data  Gb  command line/config [2]
-__iar_ttio_handles      0x20000010    0x8  Data  Lc  XShttio.o [3]
-__low_level_init        0x08000aeb    0x4  Code  Gb  low_level_init.o [3]
+__low_level_init        0x0800068b    0x4  Code  Gb  low_level_init.o [3]
 __vector_table          0x08000000         Data  Gb  startup_stm32l053xx.o [1]
-__write                 0x08000a9f   0x10  Code  Gb  write.o [5]
-_call_main              0x08000add         Code  Gb  cmain.o [4]
-_exit                   0x08000af9         Code  Gb  cexit.o [4]
-_main                   0x08000ae7         Code  Gb  cmain.o [4]
-abort                   0x0800075b    0xa  Code  Gb  abort.o [3]
-error                   0x20000000    0x2  Data  Gb  main.o [1]
-exit                    0x08000aef    0x8  Code  Gb  exit.o [3]
-main                    0x0800081d   0xec  Code  Gb  main.o [1]
-memchr                  0x0800065d   0x18  Code  Gb  memchr.o [4]
-printf                  0x08000949   0x28  Code  Gb  printf.o [3]
-putchar                 0x08000a81   0x1e  Code  Gb  putchar.o [3]
-sec_hand                0x20000018    0x4  Data  Lc  xfail_s.o [3]
-strchr                  0x080005ed    0x2  Code  Gb  strchr.o [4]
-strlen                  0x0800064d   0x10  Code  Gb  strlen.o [4]
+_call_main              0x0800067d         Code  Gb  cmain.o [4]
+_exit                   0x08000699         Code  Gb  cexit.o [4]
+_main                   0x08000687         Code  Gb  cmain.o [4]
+abort                   0x080004e1    0xa  Code  Gb  abort.o [3]
+delayTime               0x20000038    0x4  Data  Lc  delay.o [1]
+exit                    0x0800068f    0x8  Code  Gb  exit.o [3]
+init_led_ports()        0x08000279  0x10a  Code  Gb  led_hendler.o [1]
+led_update()            0x08000249   0x24  Code  Gb  led_hendler.o [1]
+main                    0x08000559   0x40  Code  Gb  main.o [1]
+pins_com                0x20000000    0x8  Data  Lc  led_hendler.o [1]
+pins_pin                0x20000008   0x10  Data  Lc  led_hendler.o [1]
+set_pin(PINS)           0x08000389   0x90  Code  Gb  led_hendler.o [1]
+ticks                   0x2000003c    0x4  Data  Gb  delay.o [1]
+toggle_pin(PINS)        0x08000419   0x90  Code  Gb  led_hendler.o [1]
 
 
 [1] = C:\Users\Admin\OneDrive\PROMA-WORK\PROMA-WORK\12_17_LCD\iar_project\Output\Obj
@@ -295,9 +257,9 @@ strlen                  0x0800064d   0x10  Code  Gb  strlen.o [4]
 [4] = rt6M_tl.a
 [5] = shb_l.a
 
-  2 906 bytes of readonly  code memory
-     33 bytes of readonly  data memory
-  1 052 bytes of readwrite data memory
+  1 766 bytes of readonly  code memory
+     68 bytes of readonly  data memory
+  1 088 bytes of readwrite data memory
 
 Errors: none
 Warnings: none
