@@ -48,12 +48,13 @@ int main() {
     
     if(is_btn::_2_pushed()) val_1 -= 1;
     
-    //if(direction) val_1 += 1;
-    //else val_1 -= 1;
-    lcd.set(DIGITS_1, val_1);
-    lcd.set(DIGITS_2, val_1);
-    lcd.set(DIGITS_3, val_1);
-    //lcd.set(DIGITS_3, OFF);
+    if(direction) val_1 += 1;
+    else val_1 -= 1;
+    lcd.set(DIGITS_CENTER, val_1);
+    lcd.set(DIGITS_TOP_LEFT, val_1);
+    lcd.set(DIGITS_19, val_1);
+    lcd.set(DIGITS_8_8, val_1, false, val_1);
+    lcd.set(SELSIUS, false);
     //lcd.set(&SCALE, val_1);
     //if(val_1 > 13) val_1 = 0;
     //if(val_2 > 8) val_2 = 0;
@@ -62,7 +63,7 @@ int main() {
     if(temp != val_1 + val_2) {
       temp = val_1 + val_2;
       //lcd.update();
-      delay(100);
+      delay(10);
       //lcd.set_seg(val_2, val_1);
     }
     

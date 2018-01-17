@@ -2,100 +2,194 @@
 
 LCD_HandleTypeDef LCDSymHandler::hlcd;
 
-// NumberSymbol set
-void LCDSymHandler::set(NumberSymbol sym, int16_t number) {
-  if(sym == DIGITS_1 && !(number <= 999 || number == OFF)) return;   // 999 limit of lcd digits quantity
-  if(sym == DIGITS_2 && !(number <= 9999 || number == OFF)) return;  // 9999 limit of lcd digits quantity
-  if(sym == DIGITS_3 && !((number <= 19 && number >= 0) || number == OFF)) return;    // [0; 19] limits of lcd digits quantity
+// NumberCenterSymbol set
+void LCDSymHandler::set(NumberCenterSymbol sym, int16_t number) {
+  if(!(number <= 9999 || number == OFF)) return;  // 9999 limit of lcd digits quantity
   
   bool is_off = number == OFF;
-  uint16_t digit_offset = 0;
   uint16_t seg_offset;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
   uint16_t com_offset;
+  uint16_t digit;
   
-  if(sym == DIGITS_1 || sym == DIGITS_2) {
-    if(sym == DIGITS_1) {
-      seg_offset = 4;
-      com_offset = 0;
-    } else if(sym == DIGITS_2) {
-      seg_offset = 6;
-      com_offset = 4;
-    }
+  seg_offset = 4;
+  com_offset = 0;
+  
+  // Clearing all digits
+  uint16_t clear = 9999;
+  digit = 0;
+  uint16_t seg_clear = seg_offset;
+  uint16_t com_clear = com_offset;
+  while(clear > 0) {
+    digit = clear % 10;
+    clear /= 10;
     
-    // Clearing all digits
-    uint16_t clear = 0;
-    uint16_t clear_digit = 0;
-    uint16_t seg_clear = seg_offset;
-    uint16_t com_clear = com_offset;
-    if(sym == DIGITS_1) clear = 999;
-    else if(sym == DIGITS_2) clear = 9999;
-    else if(sym == DIGITS_3) clear = 9;
-    while(clear > 0) {
-      clear_digit = clear % 10;
-      clear /= 10;
-      
-      uint16_t segs_amount = sizeof(syms[clear_digit + digit_offset])/sizeof(syms[clear_digit + digit_offset][0]);
-      
-      // Clear MASK
-      for(int i = 0; i < segs_amount; i++)
-        MASK[syms[clear_digit + digit_offset][i][COM] + com_clear] &= ~(syms[8 + digit_offset][i][SEG] << seg_clear);
-      
-      seg_clear -= 2;
-    }
+    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
     
-    if(number == OFF) {
-      number = 0;
-    }
+    // Clear MASK
+    for(int i = 0; i < segs_amount; i++)
+      MASK[syms[digit][i][COM] + com_clear] &= ~(syms[8][i][SEG] << seg_clear);
     
-    // Seting new digits
-    uint16_t digit;
-    while(number >= 0) {
-      digit = number % 10;
-      number /= 10;
-      
-      uint16_t segs_amount = sizeof(syms[digit + digit_offset])/sizeof(syms[digit + digit_offset][0]);
-      
-      // Refresh MASK
-      for(int i = 0; i < segs_amount; i++) {
-        //MASK[syms[digit + digit_offset][i][COM] + com_offset] &= ~(syms[8 + digit_offset][i][SEG] << seg_offset);
-        if(!is_off)
-          MASK[syms[digit + digit_offset][i][COM] + com_offset] |= syms[digit + digit_offset][i][SEG] << seg_offset;
-      }
-      
-      seg_offset -= 2;
-      if(number == 0) number = -1;
-    }
+    seg_clear -= 2;
   }
-  else {
-    seg_offset = 12;
-    com_offset = 0;
-    digit_offset = 41;
+  
+  if(number == OFF) {
+    number = 0;
+  }
+  
+  // Seting new digits
+  digit = 0;
+  while(number >= 0) {
+    digit = number % 10;
+    number /= 10;
     
+    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
     
-    if(sym == DIGITS_3)
-      MASK[syms[DIGITS_3_ONE][0][COM]] &= ~(syms[DIGITS_3_ONE][0][SEG] << seg_offset);
-    
-    if(sym == DIGITS_3 && number > 9 && number != OFF) {
-      MASK[syms[DIGITS_3_ONE][0][COM]] |= syms[DIGITS_3_ONE][0][SEG] << seg_offset;
-      number = number % 10;
-    } else if(number == OFF) {
-      number = 0;
-    }
-    
-    uint16_t segs_amount = sizeof(syms[number + digit_offset])/sizeof(syms[number + digit_offset][0]);
     // Refresh MASK
     for(int i = 0; i < segs_amount; i++) {
-      MASK[syms[number + digit_offset][i][COM] + com_offset] &= ~(syms[8 + digit_offset][i][SEG] << seg_offset);
       if(!is_off)
-        MASK[syms[number + digit_offset][i][COM] + com_offset] |= syms[number + digit_offset][i][SEG] << seg_offset;
+        MASK[syms[digit][i][COM] + com_offset] |= syms[digit][i][SEG] << seg_offset;
     }
+    
+    seg_offset -= 2;
+    if(number == 0) number = -1;
+  }
+  
+}
+
+// NumberTopLeftSymbol set
+void LCDSymHandler::set(NumberTopLeftSymbol sym, int16_t number) {
+  if(!(number <= 999 || number == OFF)) return;  // 999 limit of lcd digits quantity
+  
+  bool is_off = number == OFF;
+  uint16_t seg_offset;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
+  uint16_t com_offset;
+  uint16_t digit;
+  
+  seg_offset = 6;
+  com_offset = 4;
+  
+  // Clearing all digits
+  uint16_t clear = 999;
+  digit = 0;
+  uint16_t seg_clear = seg_offset;
+  uint16_t com_clear = com_offset;
+  while(clear > 0) {
+    digit = clear % 10;
+    clear /= 10;
+    
+    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
+    
+    // Clear MASK
+    for(int i = 0; i < segs_amount; i++)
+      MASK[syms[digit][i][COM] + com_clear] &= ~(syms[8][i][SEG] << seg_clear);
+    
+    seg_clear -= 2;
+  }
+  
+  if(number == OFF) {
+    number = 0;
+  }
+  
+  // Seting new digits
+  digit = 0;
+  while(number >= 0) {
+    digit = number % 10;
+    number /= 10;
+    
+    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
+    
+    // Refresh MASK
+    for(int i = 0; i < segs_amount; i++) {
+      if(!is_off)
+        MASK[syms[digit][i][COM] + com_offset] |= syms[digit][i][SEG] << seg_offset;
+    }
+    
+    seg_offset -= 2;
+    if(number == 0) number = -1;
+  }
+  
+}
+
+// Number19Symbol set
+void LCDSymHandler::set(Number19Symbol sym, int16_t number) {
+  if(!((number <= 19 && number >= 0) || number == OFF)) return;    // [0; 19] limits of lcd digits quantity
+  
+  bool is_off = number == OFF;
+  uint16_t seg_offset = 12;
+  uint16_t com_offset = 0;
+  uint16_t digit_offset = 41;
+  
+  MASK[syms[DIGITS_19_ONE][0][COM]] &= ~(syms[DIGITS_19_ONE][0][SEG] << seg_offset);
+  
+  if(number > 9 && number != OFF) {
+    MASK[syms[DIGITS_19_ONE][0][COM]] |= syms[DIGITS_19_ONE][0][SEG] << seg_offset;
+    number = number % 10;
+  } else if(number == OFF) {
+    number = 0;
+  }
+  
+  uint16_t segs_amount = sizeof(syms[number + digit_offset])/sizeof(syms[number + digit_offset][0]);
+  // Refresh MASK
+  for(int i = 0; i < segs_amount; i++) {
+    MASK[syms[number + digit_offset][i][COM] + com_offset] &= ~(syms[8 + digit_offset][i][SEG] << seg_offset);
+    if(!is_off)
+      MASK[syms[number + digit_offset][i][COM] + com_offset] |= syms[number + digit_offset][i][SEG] << seg_offset;
+  }
+}
+
+// Number8_8Symbol set
+void LCDSymHandler::set(Number8_8Symbol sym, int16_t number_1, bool is_dash, int16_t number_2) {
+  if(!((
+        number_1 <= 9 && number_2 <= 9 && 
+        number_1 >= 0 && number_2 >= 0) || 
+        number_1 == OFF)) return;    // [0; 9] limits of lcd digits quantity
+  
+  MASK[syms[DIGITS_8_8_DASH][0][COM]] &= ~(syms[DIGITS_8_8_DASH][0][SEG]);
+  if(is_dash)
+    MASK[syms[DIGITS_8_8_DASH][0][COM]] |= syms[DIGITS_8_8_DASH][0][SEG];
+  
+  bool is_off;
+  uint16_t number = number_1;
+  uint16_t seg_offset;
+  uint16_t com_offset = 0;
+  uint16_t digit_offset = 41;
+  
+  if(number == OFF)
+    number = 0;
+  
+  uint16_t segs_amount = sizeof(syms[number + digit_offset])/sizeof(syms[number + digit_offset][0]);
+  
+  // Set first digit
+  number = number_1;
+  seg_offset = 10;
+  is_off = number == OFF;
+  if(number == OFF)
+    number = 0;
+  // Refresh MASK
+  for(int i = 0; i < segs_amount; i++) {
+    MASK[syms[number + digit_offset][i][COM] + com_offset] &= ~(syms[8 + digit_offset][i][SEG] << seg_offset);
+    if(!is_off)
+      MASK[syms[number + digit_offset][i][COM] + com_offset] |= syms[number + digit_offset][i][SEG] << seg_offset;
+  }
+  
+  // Set second digit
+  number = number_2;
+  seg_offset = 8;
+  is_off = number == OFF;
+  if(number == OFF)
+    number = 0;
+  // Refresh MASK
+  for(int i = 0; i < segs_amount; i++) {
+    MASK[syms[number + digit_offset][i][COM] + com_offset] &= ~(syms[8 + digit_offset][i][SEG] << seg_offset);
+    if(!is_off)
+      MASK[syms[number + digit_offset][i][COM] + com_offset] |= syms[number + digit_offset][i][SEG] << seg_offset;
   }
 }
 
 // SingleSymbol set
-void LCDSymHandler::set(SingleSymbol sym, SetResetSym is_set) {
+void LCDSymHandler::set(SingleSymbol sym, bool is_set) {
   MASK[syms[sym.v()][0][COM]] &= ~syms[sym.v()][0][SEG];
-  if(is_set.v()) MASK[syms[sym.v()][0][COM]] |= syms[sym.v()][0][SEG];
+  if(is_set) MASK[syms[sym.v()][0][COM]] |= syms[sym.v()][0][SEG];
 }
 
 // ButterySymbol set
@@ -245,7 +339,8 @@ const uint16_t LCDSymHandler::syms[SYMS_AMOUNT][4][2] = {
   /* 49 */  {{0, 3}, {1, 3}, {2, 3}, {3, 1}}, // 8
   /* 50 */  {{0, 3}, {1, 3}, {2, 1}, {3, 1}}, // 9
   
-  /* 51 */  {{3, 2}}                          // 1 for 18 segmet
+  /* 51 */  {{3, 2}},                         // 1 for 18 segmet
+  /* 52 */  {{3, 0x200}}                      // - for 8-8 segmet
 };
 
 /* LCD init function */

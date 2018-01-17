@@ -4,27 +4,37 @@
 #include "stm32l0xx_hal.h"
 #include "delay.h"
 
-struct SetResetSym{
+struct NumberCenterSymbol{
 public:
-  SetResetSym(bool v) { val = v ;}
-  bool v() { return val; }
-  
-private:
-  bool val;
-};
-
-struct NumberSymbol{
-public:
-  NumberSymbol(uint16_t v) { val = v ;}
+  NumberCenterSymbol(uint16_t v) { val = v ;}
   uint16_t v() { return val; }
   
-  friend bool operator==(const NumberSymbol& left, const NumberSymbol& right) {
-    return left.val == right.val;
-  }
+private:
+  uint16_t val;
+};
+
+struct NumberTopLeftSymbol{
+public:
+  NumberTopLeftSymbol(uint16_t v) { val = v ;}
+  uint16_t v() { return val; }
   
-  friend bool operator!=(const NumberSymbol& left, const NumberSymbol& right) {
-    return !(left.val == right.val);
-  }
+private:
+  uint16_t val;
+};
+
+struct Number19Symbol{
+public:
+  Number19Symbol(uint16_t v) { val = v ;}
+  uint16_t v() { return val; }
+  
+private:
+  uint16_t val;
+};
+
+struct Number8_8Symbol{
+public:
+  Number8_8Symbol(uint16_t v) { val = v ;}
+  uint16_t v() { return val; }
   
 private:
   uint16_t val;
@@ -66,13 +76,14 @@ private:
 // LCD Handle consts
 static const uint16_t      OFF =        10000;
 
-static const SetResetSym   SET_SYM(     true    );
-static const SetResetSym   RESET_SYM(   false   );
-                          
-static const NumberSymbol  DIGITS_1(    0       );
-static const NumberSymbol  DIGITS_2(    1       );
-static const NumberSymbol  DIGITS_3(    2       );
-static const uint16_t      DIGITS_3_ONE = 51;
+static const NumberCenterSymbol DIGITS_CENTER(   0       );
+static const NumberTopLeftSymbol DIGITS_TOP_LEFT(  1       );
+
+static const Number19Symbol DIGITS_19(   2       );
+static const uint16_t       DIGITS_19_ONE = 51;
+
+static const Number8_8Symbol DIGITS_8_8(  3       );
+static const uint16_t        DIGITS_8_8_DASH = 52;
 
 static const SingleSymbol  SELSIUS(     10      );
 static const SingleSymbol  KPA(         11      );
@@ -101,8 +112,12 @@ public:
   void set_seg(uint32_t com, uint32_t seg);
   void test_set();
 
-  void set(NumberSymbol sym, int16_t number);
-  void set(SingleSymbol sym, SetResetSym is_set);
+  void set(NumberCenterSymbol sym, int16_t number);
+  void set(NumberTopLeftSymbol sym, int16_t number);
+  void set(Number19Symbol sym, int16_t number);
+  void set(Number8_8Symbol sym, int16_t number_1, bool is_dash, int16_t number_2);
+  
+  void set(SingleSymbol sym, bool is_set);
   void set(ButterySymbol (*sym)[BATTERY_LEN + 1], uint16_t level);
   void set(AntennaSymbol (*sym)[ANTENNA_LEN + 1], uint16_t level);
   void set(ScaleSymbol   (*sym)[SCALE_LEN   + 1], uint16_t level);
@@ -116,7 +131,7 @@ private:
   static void MX_LCD_Init();
   static void MX_GPIO_Init();
   
-  static uint8_t const SYMS_AMOUNT = 52;
+  static uint8_t const SYMS_AMOUNT = 53;
   static const uint16_t syms[SYMS_AMOUNT][4][2];
 };
 
