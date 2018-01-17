@@ -30,7 +30,6 @@ struct is_btn {
 };
 
 int main() {
-  /* Configure the system clock */
   SystemClock_Config();
   
   LCDSymHandler lcd;
@@ -40,25 +39,35 @@ int main() {
   uint16_t val_1 = 0;
   uint16_t val_2 = 0;
   
+  bool direction = true;
+  
   uint16_t temp = 0;
   while(1) {
-    //if(is_btn::_1_pushed()) val_1 += 1;
-    if(is_btn::_1_pushed()) lcd.set(ANTENNA_SYM + val_2, SET_SYM);
+    if(is_btn::_1_pushed()) val_1 += 1;
+    //if(is_btn::_1_pushed()) lcd.set(&BATTERY, 3);
     
-    if(is_btn::_2_pushed()) val_2 += 1;
+    if(is_btn::_2_pushed()) val_1 -= 1;
     
-    //val_1 += 1;
-    //lcd.set_number(DIGITS_2, val_1);
-    
-    if(val_1 > 13) val_1 = 0;
-    if(val_2 > 8) val_2 = 0;
+    //if(direction) val_1 += 1;
+    //else val_1 -= 1;
+    lcd.set(DIGITS_1, val_1);
+    lcd.set(DIGITS_2, val_1);
+    lcd.set(DIGITS_3, val_1);
+    //lcd.set(DIGITS_3, OFF);
+    //lcd.set(&SCALE, val_1);
+    //if(val_1 > 13) val_1 = 0;
+    //if(val_2 > 8) val_2 = 0;
     
     lcd.update();
     if(temp != val_1 + val_2) {
       temp = val_1 + val_2;
-      delay(150);
-      lcd.set_seg(val_2, val_1);
+      //lcd.update();
+      delay(100);
+      //lcd.set_seg(val_2, val_1);
     }
+    
+    if(val_1 > 111) direction = false;
+    if(val_1 <= 0) direction = true;
   }
 }
 
@@ -71,7 +80,7 @@ void init_buttons() {
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   
-  delay(100);   // pins config delay
+  //delay(100);   // pins config delay
 }
 
 /** System Clock Configuration */
