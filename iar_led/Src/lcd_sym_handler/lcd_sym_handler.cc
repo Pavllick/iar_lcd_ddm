@@ -1,9 +1,10 @@
 #include "lcd_sym_handler.h"
+#include <cmath> // round(value*10)/10
 
 LCD_HandleTypeDef LCDSymHandler::hlcd;
 
 // NumberCenterSymbol set
-void LCDSymHandler::set(NumberCenterSymbol sym, int16_t number) {
+void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
   if(!(number <= 9999 || number == OFF)) return;  // 9999 limit of lcd digits quantity
   
   bool is_off = number == OFF;
@@ -11,8 +12,8 @@ void LCDSymHandler::set(NumberCenterSymbol sym, int16_t number) {
   uint16_t com_offset;
   uint16_t digit;
   
-  seg_offset = 4;
-  com_offset = 0;
+  seg_offset = 6;
+  com_offset = 4;
   
   // Clearing all digits
   uint16_t clear = 9999;
@@ -32,15 +33,51 @@ void LCDSymHandler::set(NumberCenterSymbol sym, int16_t number) {
     seg_clear -= 2;
   }
   
-  if(number == OFF) {
-    number = 0;
+  int16_t number_left  = 0;
+  int16_t number_right = 0;
+  uint8_t digits_amount = 0;
+  uint8_t digits_amount_left  = 0;
+  uint8_t digits_amount_right = 3;
+  int16_t dot_addr = 0;
+  
+  if(number >= 0.001) {
+    int16_t precision = 1000;
+    int int_num = floor(number * precision);
+    while(int_num % 10 == 0) {
+      precision /= 10;
+      int_num /= 10;
+      digits_amount_right -= 1;
+    }
+
+    number_left  = floor((float)int_num / precision);
+    number_right = int_num % precision;
+
+    int_num = floor(number * precision);
+    digits_amount = floor(log10(abs((float)int_num)) + 1);
+    
+    if(digits_amount >= digits_amount_right)
+      digits_amount_left = digits_amount - digits_amount_right;
+
+    number = floor((float)number * precision);
+    if(digits_amount > 4 && digits_amount_left < 4) number /= pow(10.0, (digits_amount - 4));
+    
+    if(digits_amount_left < 4 && digits_amount_left > 0 && digits_amount_right > 0) {
+      dot_addr = 4 - digits_amount_left - digits_amount_right;
+      if(dot_addr <= 0) dot_addr = 4 - digits_amount_left;
+      
+    } else if(digits_amount_left == 0 && digits_amount_right > 0) {
+      dot_addr = digits_amount_right;
+      if(dot_addr >= 4) dot_addr = 3;
+    }
   }
   
   // Seting new digits
   digit = 0;
-  while(number >= 0) {
-    digit = number % 10;
-    number /= 10;
+  int int_number = floor(number);
+  int8_t empty_digits = 4;
+  while(int_number >= 0 && number != OFF) {
+    digit = int_number % 10;
+    int_number /= 10;
     
     uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
     
@@ -51,9 +88,20 @@ void LCDSymHandler::set(NumberCenterSymbol sym, int16_t number) {
     }
     
     seg_offset -= 2;
-    if(number == 0) number = -1;
+    empty_digits -= 1;
+    if(int_number == 0) int_number = -1;
   }
-  
+  if(dot_addr > 0) {
+    seg_offset = 6;
+    MASK[syms[DIGITS_DOT][0][COM] + com_offset] |= syms[DIGITS_DOT][0][SEG] << seg_offset - (2 * dot_addr);
+    
+    if(digits_amount_left == 0) {
+      for(int i = 0; i < 4; i++) {
+        if(!is_off)
+          MASK[syms[0][i][COM] + com_offset] |= syms[0][i][SEG] << seg_offset - (2 * dot_addr);
+      }
+    }
+  }
 }
 
 // NumberTopLeftSymbol set
@@ -65,8 +113,8 @@ void LCDSymHandler::set(NumberTopLeftSymbol sym, int16_t number) {
   uint16_t com_offset;
   uint16_t digit;
   
-  seg_offset = 6;
-  com_offset = 4;
+  seg_offset = 4;
+  com_offset = 0;
   
   // Clearing all digits
   uint16_t clear = 999;
@@ -86,13 +134,9 @@ void LCDSymHandler::set(NumberTopLeftSymbol sym, int16_t number) {
     seg_clear -= 2;
   }
   
-  if(number == OFF) {
-    number = 0;
-  }
-  
   // Seting new digits
   digit = 0;
-  while(number >= 0) {
+  while(number >= 0 && number != OFF) {
     digit = number % 10;
     number /= 10;
     
@@ -278,6 +322,7 @@ void LCDSymHandler::update() {
 }
 
 const uint16_t LCDSymHandler::syms[SYMS_AMOUNT][4][2] = {
+  // NumberCenter Symbols
   /* 0  */  {{0, 3}, {1, 2}, {2, 3}, {3, 2}}, // 0
   /* 1  */  {{0, 0}, {1, 2}, {2, 2}, {3, 0}}, // 1
   /* 2  */  {{0, 2}, {1, 3}, {2, 1}, {3, 2}}, // 2
@@ -328,6 +373,7 @@ const uint16_t LCDSymHandler::syms[SYMS_AMOUNT][4][2] = {
   /* 39 */  {{6, 0x100}},                     // SCALE level 17
   /* 40 */  {{5, 0x100}},                     // SCALE level 18
   
+  // NumberTopLeft Symbols
   /* 41 */  {{0, 3}, {1, 1}, {2, 3}, {3, 1}}, // 0
   /* 42 */  {{0, 0}, {1, 1}, {2, 1}, {3, 0}}, // 1
   /* 43 */  {{0, 1}, {1, 3}, {2, 2}, {3, 1}}, // 2
@@ -340,7 +386,10 @@ const uint16_t LCDSymHandler::syms[SYMS_AMOUNT][4][2] = {
   /* 50 */  {{0, 3}, {1, 3}, {2, 1}, {3, 1}}, // 9
   
   /* 51 */  {{3, 2}},                         // 1 for 18 segmet
-  /* 52 */  {{3, 0x200}}                      // - for 8-8 segmet
+  /* 52 */  {{3, 0x200}},                     // - for 8-8 segmet
+  
+  // Dots for numbers
+  /* 53 */  {{3, 0x4}},                       // dot for NumberTopLeft 8.88
 };
 
 /* LCD init function */

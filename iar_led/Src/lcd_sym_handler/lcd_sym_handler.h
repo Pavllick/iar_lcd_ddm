@@ -74,20 +74,21 @@ private:
 };
 
 // LCD Handle consts
-static const uint16_t      OFF =        10000;
+static const uint16_t OFF = 10000;
 
-static const NumberCenterSymbol DIGITS_CENTER(   0       );
-static const NumberTopLeftSymbol DIGITS_TOP_LEFT(  1       );
+static const NumberCenterSymbol  DIGITS_CENTER(    0 );
+static const NumberTopLeftSymbol DIGITS_TOP_LEFT(  1 );
+static const uint8_t             DIGITS_DOT =      53;
 
-static const Number19Symbol DIGITS_19(   2       );
-static const uint16_t       DIGITS_19_ONE = 51;
+static const Number19Symbol      DIGITS_19(        2 );
+static const uint16_t            DIGITS_19_ONE =   51;
 
-static const Number8_8Symbol DIGITS_8_8(  3       );
-static const uint16_t        DIGITS_8_8_DASH = 52;
+static const Number8_8Symbol     DIGITS_8_8(       3 );
+static const uint16_t            DIGITS_8_8_DASH = 52;
 
-static const SingleSymbol  SELSIUS(     10      );
-static const SingleSymbol  KPA(         11      );
-static const SingleSymbol  MPA(         12      );
+static const SingleSymbol        SELSIUS(          10 );
+static const SingleSymbol        KPA(              11 );
+static const SingleSymbol        MPA(              12 );
 
 // values of battery level [0...3] and OFF
 static ButterySymbol       BATTERY[4] = { 13, 14, 15, 16 };
@@ -112,7 +113,7 @@ public:
   void set_seg(uint32_t com, uint32_t seg);
   void test_set();
 
-  void set(NumberCenterSymbol sym, int16_t number);
+  void set(NumberCenterSymbol sym, float number);
   void set(NumberTopLeftSymbol sym, int16_t number);
   void set(Number19Symbol sym, int16_t number);
   void set(Number8_8Symbol sym, int16_t number_1, bool is_dash, int16_t number_2);
@@ -131,7 +132,7 @@ private:
   static void MX_LCD_Init();
   static void MX_GPIO_Init();
   
-  static uint8_t const SYMS_AMOUNT = 53;
+  static uint8_t const SYMS_AMOUNT = 54;
   static const uint16_t syms[SYMS_AMOUNT][4][2];
 };
 
