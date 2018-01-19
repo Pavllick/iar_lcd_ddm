@@ -79,6 +79,7 @@ static const uint16_t OFF = 10000;
 static const NumberCenterSymbol  DIGITS_CENTER(    0 );
 static const NumberTopLeftSymbol DIGITS_TOP_LEFT(  1 );
 static const uint8_t             DIGITS_DOT =      53;
+static const uint8_t             DIGITS_MINUS =    54;
 
 static const Number19Symbol      DIGITS_19(        2 );
 static const uint16_t            DIGITS_19_ONE =   51;
@@ -132,7 +133,10 @@ private:
   static void MX_LCD_Init();
   static void MX_GPIO_Init();
   
-  static uint8_t const SYMS_AMOUNT = 54;
+  uint16_t precision(float number, uint8_t lcd_max_digits);
+  int int_number(float number, int8_t lcd_max_digits, int16_t *precis);
+  
+  static uint8_t const SYMS_AMOUNT = 55;
   static const uint16_t syms[SYMS_AMOUNT][4][2];
 };
 

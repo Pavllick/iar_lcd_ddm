@@ -5,7 +5,7 @@ LCD_HandleTypeDef LCDSymHandler::hlcd;
 
 // NumberCenterSymbol set
 void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
-  if(!(number <= 9999 || number == OFF)) return;  // 9999 limit of lcd digits quantity
+  if(!(number > -999 || number < 9999 || number == OFF)) return;  // [-999; 9999] limit of lcd digits quantity
   
   bool is_off = number == OFF;
   uint16_t seg_offset;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
@@ -27,53 +27,72 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
     uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
     
     // Clear MASK
-    for(int i = 0; i < segs_amount; i++)
+    for(int i = 0; i < segs_amount; i++) {
       MASK[syms[digit][i][COM] + com_clear] &= ~(syms[8][i][SEG] << seg_clear);
+      MASK[syms[DIGITS_DOT][0][COM] + com_offset] &= ~(syms[DIGITS_DOT][0][SEG] << seg_offset - (2 * i));
+    }
     
     seg_clear -= 2;
   }
+  
+  if(number < 0.001 && number > -0.001)
+    number = 0;
+  
+  bool is_negative = false;
+  if(number <= -0.001) {
+    is_negative = true;
+    number = abs(number);
+  }
+  
+  uint8_t lcd_max_digits = 4;
+  if(is_negative) lcd_max_digits -= 1;
   
   int16_t number_left  = 0;
   int16_t number_right = 0;
   uint8_t digits_amount = 0;
   uint8_t digits_amount_left  = 0;
-  uint8_t digits_amount_right = 3;
+  uint8_t digits_amount_right = 0;
+  uint8_t non_zero_digits_amount_right = 0;
+  uint8_t zero_digits_amount_right = 0;
   int16_t dot_addr = 0;
+  int16_t precis = 0;
   
   if(number >= 0.001) {
-    int16_t precision = 1000;
-    int int_num = floor(number * precision);
-    while(int_num % 10 == 0) {
-      precision /= 10;
-      int_num /= 10;
-      digits_amount_right -= 1;
-    }
+    precis = precision(number, lcd_max_digits);
+    int int_num = int_number(number, lcd_max_digits, &precis);  // update precis var !!
+    
+    digits_amount_right = int(floor(log10(abs((float)precis))));
+    
+    number_left  = int(floor((float)int_num / precis));
+    number_right = (int16_t)(int_num % precis);
 
-    number_left  = floor((float)int_num / precision);
-    number_right = int_num % precision;
-
-    int_num = floor(number * precision);
-    digits_amount = floor(log10(abs((float)int_num)) + 1);
+    //int_num = int(floor(number * precis));
+    digits_amount = int(floor(log10(abs((float)int_num)) + 1));
+    
+    non_zero_digits_amount_right = int(floor(log10(abs((float)number_right)) + 1));
     
     if(digits_amount >= digits_amount_right)
       digits_amount_left = digits_amount - digits_amount_right;
 
-    number = floor((float)number * precision);
-    if(digits_amount > 4 && digits_amount_left < 4) number /= pow(10.0, (digits_amount - 4));
+    number = floor((float)number * precis);
+    //if(digits_amount > lcd_max_digits && digits_amount_left < lcd_max_digits) number /= pow(10.0, (digits_amount - lcd_max_digits));
     
-    if(digits_amount_left < 4 && digits_amount_left > 0 && digits_amount_right > 0) {
-      dot_addr = 4 - digits_amount_left - digits_amount_right;
-      if(dot_addr <= 0) dot_addr = 4 - digits_amount_left;
+    if(digits_amount_left < lcd_max_digits && digits_amount_left > 0 && digits_amount_right > 0) {
+      dot_addr = lcd_max_digits - digits_amount_left;
+      if(!(dot_addr < digits_amount_right)) dot_addr = digits_amount_right;
+      if(dot_addr <= 0) dot_addr = lcd_max_digits - digits_amount_left;
       
     } else if(digits_amount_left == 0 && digits_amount_right > 0) {
       dot_addr = digits_amount_right;
-      if(dot_addr >= 4) dot_addr = 3;
+      if(dot_addr >= lcd_max_digits) dot_addr = lcd_max_digits - 1;
+      
+      zero_digits_amount_right = digits_amount_right - non_zero_digits_amount_right;
     }
   }
   
   // Seting new digits
   digit = 0;
-  int int_number = floor(number);
+  int int_number = int(floor(number));
   int8_t empty_digits = 4;
   while(int_number >= 0 && number != OFF) {
     digit = int_number % 10;
@@ -91,17 +110,59 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
     empty_digits -= 1;
     if(int_number == 0) int_number = -1;
   }
-  if(dot_addr > 0) {
+  
+  if(dot_addr > 0 && !is_off) {
+    // Draw dot sign
     seg_offset = 6;
     MASK[syms[DIGITS_DOT][0][COM] + com_offset] |= syms[DIGITS_DOT][0][SEG] << seg_offset - (2 * dot_addr);
     
+    // Draw zero sign
     if(digits_amount_left == 0) {
-      for(int i = 0; i < 4; i++) {
+      for(int i = 0; i < 4; i++)
+        MASK[syms[0][i][COM] + com_offset] |= syms[0][i][SEG] << seg_offset - (2 * dot_addr);
+      
+      // Draw zero signs to the right of dot
+      while(zero_digits_amount_right) {
+        for(int i = 0; i < 4; i++) {
         if(!is_off)
-          MASK[syms[0][i][COM] + com_offset] |= syms[0][i][SEG] << seg_offset - (2 * dot_addr);
+          MASK[syms[0][i][COM] + com_offset] |= syms[0][i][SEG] << seg_offset - (2 * (dot_addr - zero_digits_amount_right));
+        }
+        
+        zero_digits_amount_right -= 1;
       }
     }
   }
+  
+  if(is_negative && !is_off) {
+    seg_offset = 6;
+    int8_t minus_shift;
+    if(digits_amount_left == 0) minus_shift =  digits_amount_right + 1;
+    else minus_shift = digits_amount;
+    MASK[syms[DIGITS_MINUS][0][COM] + com_offset] |= syms[DIGITS_MINUS][0][SEG] << seg_offset - (2 * minus_shift);
+  }
+}
+
+uint16_t LCDSymHandler::precision(float number, uint8_t lcd_max_digits) {
+  uint16_t prec = int(pow(10.0, (lcd_max_digits - 1)));
+  int int_num = int(floor(number * prec));
+  while(int_num % 10 == 0 && prec > 1) {
+    prec /= 10;
+    int_num /= 10;
+  }
+  
+  return prec;
+}
+
+int LCDSymHandler::int_number(float number, int8_t lcd_max_digits, int16_t *precis) {
+  int int_num = int(floor(number * *precis));
+  int8_t digits_amount = int(floor(log10(abs((float)int_num)) + 1));
+  while(digits_amount > lcd_max_digits) {
+    if(*precis > 1) *precis /= 10;
+    int_num /= 10;
+    digits_amount -= 1;
+  }
+  
+  return int_num;
 }
 
 // NumberTopLeftSymbol set
@@ -390,6 +451,9 @@ const uint16_t LCDSymHandler::syms[SYMS_AMOUNT][4][2] = {
   
   // Dots for numbers
   /* 53 */  {{3, 0x4}},                       // dot for NumberTopLeft 8.88
+  
+  // Minus for numbers
+  /* 53 */  {{1, 0x1}},                       // minus for NumberTopLeft -88
 };
 
 /* LCD init function */

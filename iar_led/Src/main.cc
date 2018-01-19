@@ -36,7 +36,7 @@ int main() {
   lcd.init();
   init_buttons();
   
-  uint16_t val_1 = 0;
+  float val_1 = -0.09;
   uint16_t val_2 = 0;
   
   bool direction = true;
@@ -48,15 +48,15 @@ int main() {
     
     if(is_btn::_2_pushed()) val_1 -= 1;
     
-    //if(direction) val_1 += 1;
-    //else val_1 -= 1;
+    if(direction) val_1 += 0.01;
+    else val_1 -= 0.01;
     
-    lcd.set(DIGITS_CENTER, 0.12841);
-    lcd.set(DIGITS_TOP_LEFT, val_1);
-    lcd.set(DIGITS_19, val_1);
-    lcd.set(DIGITS_8_8, val_1, false, val_1);
-    lcd.set(SELSIUS, false);
-    lcd.set(&SCALE, val_1);
+    lcd.set(DIGITS_CENTER, val_1);
+    //lcd.set(DIGITS_TOP_LEFT, val_1);
+    //lcd.set(DIGITS_19, val_1);
+    //lcd.set(DIGITS_8_8, val_1, false, val_1);
+    //lcd.set(SELSIUS, false);
+    //lcd.set(&SCALE, val_1);
     //if(val_1 > 13) val_1 = 0;
     //if(val_2 > 8) val_2 = 0;
     
@@ -68,8 +68,8 @@ int main() {
       //lcd.set_seg(val_2, val_1);
     }
     
-    if(val_1 > 111) direction = false;
-    if(val_1 <= 0) direction = true;
+    if(val_1 > 1.1) direction = false;
+    if(val_1 < -1.1) direction = true;
   }
 }
 
