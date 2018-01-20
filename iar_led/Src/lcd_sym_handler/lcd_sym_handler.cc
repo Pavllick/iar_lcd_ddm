@@ -8,12 +8,9 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
   if(!(number > -999 || number < 9999 || number == OFF)) return;  // [-999; 9999] limit of lcd digits quantity
   
   bool is_off = number == OFF;
-  uint16_t seg_offset;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
-  uint16_t com_offset;
+  uint16_t seg_offset = 6;;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
+  uint16_t com_offset = 4;;
   uint16_t digit;
-  
-  seg_offset = 6;
-  com_offset = 4;
   
   // Clearing all digits
   uint16_t clear = 9999;
@@ -35,19 +32,73 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
     seg_clear -= 2;
   }
   
-  if(number < 0.001 && number > -0.001)
+  set_floating_num(4, number, is_off);
+}
+
+// NumberTopLeftSymbol set
+void LCDSymHandler::set(NumberTopLeftSymbol sym, float number) {
+  if(!(number > -99 || number < 999 || number == OFF)) return;  // [-99; 999] limit of lcd digits quantity
+  
+  bool is_off = number == OFF;
+  uint16_t seg_offset = 4;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
+  uint16_t com_offset = 0;
+  uint16_t digit;
+  
+  // Clearing all digits
+  uint16_t clear = 999;
+  digit = 0;
+  uint16_t seg_clear = seg_offset;
+  uint16_t com_clear = com_offset;
+  while(clear > 0) {
+    digit = clear % 10;
+    clear /= 10;
+    
+    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
+    
+    // Clear MASK
+    for(int i = 0; i < segs_amount; i++) {
+      MASK[syms[digit][i][COM] + com_clear] &= ~(syms[8][i][SEG] << seg_clear);
+      MASK[syms[DIGITS_DOT][0][COM] + com_offset] &= ~(syms[DIGITS_DOT][0][SEG] << seg_offset - (2 * i));
+    }
+    
+    seg_clear -= 2;
+  }
+  
+  set_floating_num(3, number, is_off);
+}
+
+void LCDSymHandler::set_floating_num(int8_t digits_segments, float number, bool is_off) {
+  uint16_t seg_offset = 0;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
+  uint16_t com_offset = 0;
+  uint8_t lcd_max_digits = digits_segments;
+  
+  float up_01 = 0;
+  float down_01 = 0;
+  
+  if(digits_segments == 3) {
+    up_01 = 0.01;
+    down_01 = -0.01;
+    seg_offset = 4;
+    com_offset = 0;
+  } else if(digits_segments == 4) {
+    up_01 = 0.001;
+    down_01 = -0.001;
+    seg_offset = 6;
+    com_offset = 4;
+  }
+  
+  if(number < up_01 && number > down_01)
     number = 0;
   
   bool is_negative = false;
-  if(number <= -0.001) {
+  if(number <= down_01) {
     is_negative = true;
     number = abs(number);
   }
   
-  uint8_t lcd_max_digits = 4;
   if(is_negative) lcd_max_digits -= 1;
   
-  int16_t number_left  = 0;
+  // int16_t number_left  = 0;
   int16_t number_right = 0;
   uint8_t digits_amount = 0;
   uint8_t digits_amount_left  = 0;
@@ -57,13 +108,13 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
   int16_t dot_addr = 0;
   int16_t precis = 0;
   
-  if(number >= 0.001) {
+  if(number >= up_01) {
     precis = precision(number, lcd_max_digits);
     int int_num = int_number(number, lcd_max_digits, &precis);  // update precis var !!
     
     digits_amount_right = int(floor(log10(abs((float)precis))));
     
-    number_left  = int(floor((float)int_num / precis));
+    // number_left  = int(floor((float)int_num / precis));
     number_right = (int16_t)(int_num % precis);
 
     //int_num = int(floor(number * precis));
@@ -91,10 +142,10 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
   }
   
   // Seting new digits
-  digit = 0;
+  uint16_t digit = 0;
   int int_number = int(floor(number));
-  int8_t empty_digits = 4;
-  while(int_number >= 0 && number != OFF) {
+  uint16_t seg_offset_tmp = seg_offset;
+  while(int_number >= 0 && int_number != OFF) {
     digit = int_number % 10;
     int_number /= 10;
     
@@ -103,17 +154,16 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
     // Refresh MASK
     for(int i = 0; i < segs_amount; i++) {
       if(!is_off)
-        MASK[syms[digit][i][COM] + com_offset] |= syms[digit][i][SEG] << seg_offset;
+        MASK[syms[digit][i][COM] + com_offset] |= syms[digit][i][SEG] << seg_offset_tmp;
     }
     
-    seg_offset -= 2;
-    empty_digits -= 1;
+    seg_offset_tmp -= 2;
     if(int_number == 0) int_number = -1;
   }
   
   if(dot_addr > 0 && !is_off) {
     // Draw dot sign
-    seg_offset = 6;
+    //seg_offset = 4;
     MASK[syms[DIGITS_DOT][0][COM] + com_offset] |= syms[DIGITS_DOT][0][SEG] << seg_offset - (2 * dot_addr);
     
     // Draw zero sign
@@ -134,7 +184,7 @@ void LCDSymHandler::set(NumberCenterSymbol sym, float number) {
   }
   
   if(is_negative && !is_off) {
-    seg_offset = 6;
+    //seg_offset = 4;
     int8_t minus_shift;
     if(digits_amount_left == 0) minus_shift =  digits_amount_right + 1;
     else minus_shift = digits_amount;
@@ -163,56 +213,6 @@ int LCDSymHandler::int_number(float number, int8_t lcd_max_digits, int16_t *prec
   }
   
   return int_num;
-}
-
-// NumberTopLeftSymbol set
-void LCDSymHandler::set(NumberTopLeftSymbol sym, int16_t number) {
-  if(!(number <= 999 || number == OFF)) return;  // 999 limit of lcd digits quantity
-  
-  bool is_off = number == OFF;
-  uint16_t seg_offset;  // SEG offset 2 for each digit [2 | 2 | 2 | 2]
-  uint16_t com_offset;
-  uint16_t digit;
-  
-  seg_offset = 4;
-  com_offset = 0;
-  
-  // Clearing all digits
-  uint16_t clear = 999;
-  digit = 0;
-  uint16_t seg_clear = seg_offset;
-  uint16_t com_clear = com_offset;
-  while(clear > 0) {
-    digit = clear % 10;
-    clear /= 10;
-    
-    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
-    
-    // Clear MASK
-    for(int i = 0; i < segs_amount; i++)
-      MASK[syms[digit][i][COM] + com_clear] &= ~(syms[8][i][SEG] << seg_clear);
-    
-    seg_clear -= 2;
-  }
-  
-  // Seting new digits
-  digit = 0;
-  while(number >= 0 && number != OFF) {
-    digit = number % 10;
-    number /= 10;
-    
-    uint16_t segs_amount = sizeof(syms[digit])/sizeof(syms[digit][0]);
-    
-    // Refresh MASK
-    for(int i = 0; i < segs_amount; i++) {
-      if(!is_off)
-        MASK[syms[digit][i][COM] + com_offset] |= syms[digit][i][SEG] << seg_offset;
-    }
-    
-    seg_offset -= 2;
-    if(number == 0) number = -1;
-  }
-  
 }
 
 // Number19Symbol set
@@ -339,12 +339,6 @@ void LCDSymHandler::set(ScaleSymbol (*sym)[SCALE_LEN + 1], uint16_t level) {
   }
 }
 
-void LCDSymHandler::set_seg(uint32_t com, uint32_t seg) {
-  
-  HAL_LCD_Write(&hlcd, com*2, 1 << seg, 1 << seg);
-  //HAL_LCD_UpdateDisplayRequest(&hlcd);
-}
-
 void LCDSymHandler::init() {
   /* MCU Configuration----------------------------------------------------------*/
 
@@ -354,9 +348,6 @@ void LCDSymHandler::init() {
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_LCD_Init();
-  
-  //for(int i = 0; i < 8; i++) MASK[i] = 0;
-  //for(int i = 0; i < 8; i++) MASK_PREV[i] = 0;
   
   HAL_LCD_Clear(&hlcd);
 }

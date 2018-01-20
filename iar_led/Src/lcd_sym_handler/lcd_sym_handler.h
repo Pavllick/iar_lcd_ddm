@@ -4,6 +4,107 @@
 #include "stm32l0xx_hal.h"
 #include "delay.h"
 
+/******************************************************************************
+  * This file privides LCD API. Initialization functions and symbols/numbers
+  * handlers for STM32L053, 8 COMs and 14 SEGs.
+  *
+  *****************************************************************************
+  *                 ##### How to use this library #####
+  *****************************************************************************
+  * @brief    Initialization functions
+  * @description
+  ==============================================================================
+                    ##### Initialization function #####
+  ==============================================================================
+  * For init LCD it needs to define LCDSymHandler class variable
+  * And to call function init(), that will set up all LCD pins configuration
+  * automatically by using HAL driver, (#include "stm32l0xx_hal.h"), necessary
+  * add to header
+  * @example    LCDSymHandler lcd;      // Define class varible
+  *             lcd.init();             // Initiate and configure LCD
+  * 
+  ******************************************************************************
+  * @function     void update();
+  * @brief        Updates LCD data
+  * @description  Should calls after change symbol's value,
+  *               may uses in main while cycle. Update LCD only if at least
+  *               one symbol was chnged otherwise do nothing.
+  * 
+  ******************************************************************************
+  * @brief    LCD elements setting functions
+  * @description
+  *
+  ==============================================================================
+                        ##### LCD handlers #####
+  ==============================================================================
+  * @brief      LCDSymHandler privides functions for set/reset LCD
+  *             symbols and numbers. There are many overloadings
+  *             for (set()) function that can be used for all LCD configurations
+  *
+  *****************************************************************************
+  * @function   void set(sym, bool is_set);
+  * @brief      Function for 1 symbol elements handle
+  * @param      sym     - const symbol name, can be one of the followings:
+  *             SELSIUS, KPA or MPA
+  *             is_set  - on/off symbol
+  *
+  *****************************************************************************
+  * @function   void set(ButterySymbol (*sym)[BATTERY_LEN + 1], uint16_t level);
+  * @usage      void set(&BATTERY, uint16_t level);
+  * @brief      Function for battery elements handle
+  * @param      &BATTERY - const symbol name
+  *             level    - number from range (0 to 3) or OFF constant
+  * 
+  *****************************************************************************
+  * @function   void set(AntennaSymbol (*sym)[ANTENNA_LEN + 1], uint16_t level);
+  * @usage      void set(&ANTENNA, uint16_t level);
+  * @brief      Function for antenna elements handle
+  * @param      &ANTENNA - const symbol name
+  *             level    - number from range (0 to 4) or OFF constant
+  * 
+  *****************************************************************************
+  * @function   void void set(ScaleSymbol (*sym)[SCALE_LEN   + 1], uint16_t level);
+  * @usage      void set(&SCALE, uint16_t level);
+  * @brief      Function for bottom scale elements handle
+  * @param      &SCALE  - const symbol name
+  *             level   - number from range (0 to 18) or OFF constant
+  * 
+  *****************************************************************************
+  * @function   void set(NumberCenterSymbol sym, float number);
+  * @usage      void set(DIGITS_CENTER, float number);
+  * @brief      Function for center, 4 digits, number handle
+  * @param      DIGITS_CENTER - const symbol name
+  *             number        - floating number from range
+  *                             (-999.0 to 9999.0) or OFF constant
+  * 
+  *****************************************************************************
+  * @function   void set(NumberTopLeftSymbol sym, float number);
+  * @usage      void set(DIGITS_TOP_LEFT, float number);
+  * @brief      Function for top left, 3 digits, number handle
+  * @param      DIGITS_TOP_LEFT - const symbol name
+  *             number          - floating number from range
+  *                               (-99.0 to 999.0) or OFF constant
+  * 
+  *****************************************************************************
+  * @function   void set(Number19Symbol sym, int16_t number);
+  * @usage      void set(DIGITS_19, int16_t number);
+  * @brief      Function for top right, 2 digits, number handle
+  * @param      DIGITS_19 - const symbol name
+  *             number    - number from range (0 to 19) or OFF constant
+  * 
+  *****************************************************************************
+  * @function   void set(Number8_8Symbol sym, int16_t number_1, bool is_dash, int16_t number_2);
+  * @usage      void set(DIGITS_8_8, int16_t number);
+  * @brief      Function for bottom right, two one digit numbers handle
+  * @param      DIGITS_8_8 - const symbol name
+  *             number_1   - number from range (0 to 9) or OFF constant
+  *             is_dash    - on/off dash symbol between numbers
+  *             number_2   - number from range (0 to 9) or OFF constant
+  * 
+  *****************************************************************************
+  *****************************************************************************
+  */
+
 struct NumberCenterSymbol{
 public:
   NumberCenterSymbol(uint16_t v) { val = v ;}
@@ -111,11 +212,9 @@ public:
 
   void init();
   void update();
-  void set_seg(uint32_t com, uint32_t seg);
-  void test_set();
 
   void set(NumberCenterSymbol sym, float number);
-  void set(NumberTopLeftSymbol sym, int16_t number);
+  void set(NumberTopLeftSymbol sym, float number);
   void set(Number19Symbol sym, int16_t number);
   void set(Number8_8Symbol sym, int16_t number_1, bool is_dash, int16_t number_2);
   
@@ -135,6 +234,7 @@ private:
   
   uint16_t precision(float number, uint8_t lcd_max_digits);
   int int_number(float number, int8_t lcd_max_digits, int16_t *precis);
+  void set_floating_num(int8_t digits_segments, float number, bool is_off);
   
   static uint8_t const SYMS_AMOUNT = 55;
   static const uint16_t syms[SYMS_AMOUNT][4][2];

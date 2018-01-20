@@ -36,40 +36,38 @@ int main() {
   lcd.init();
   init_buttons();
   
+  /* Sample
   float val_1 = -0.09;
   uint16_t val_2 = 0;
-  
   bool direction = true;
-  
   uint16_t temp = 0;
+  */
+  
   while(1) {
-    if(is_btn::_1_pushed()) val_1 += 1;
-    //if(is_btn::_1_pushed()) lcd.set(&BATTERY, 3);
+    /* Sample
+    //lcd.set(DIGITS_CENTER, val_1);
+    //lcd.set(DIGITS_TOP_LEFT, val_1);
+    //lcd.set(DIGITS_19, val_2);
+    //lcd.set(DIGITS_8_8, val_2, true, val_2);
+    //lcd.set(SELSIUS, true);
+    //lcd.set(&SCALE, val_2);
     
+    if(is_btn::_1_pushed()) val_1 += 1;
     if(is_btn::_2_pushed()) val_1 -= 1;
     
     if(direction) val_1 += 0.01;
     else val_1 -= 0.01;
     
-    lcd.set(DIGITS_CENTER, val_1);
-    //lcd.set(DIGITS_TOP_LEFT, val_1);
-    //lcd.set(DIGITS_19, val_1);
-    //lcd.set(DIGITS_8_8, val_1, false, val_1);
-    //lcd.set(SELSIUS, false);
-    //lcd.set(&SCALE, val_1);
-    //if(val_1 > 13) val_1 = 0;
-    //if(val_2 > 8) val_2 = 0;
-    
-    lcd.update();
-    if(temp != val_1 + val_2) {
-      temp = val_1 + val_2;
-      //lcd.update();
-      delay(100);
-      //lcd.set_seg(val_2, val_1);
-    }
-    
     if(val_1 > 1.1) direction = false;
     if(val_1 < -1.1) direction = true;
+    
+    if(temp != val_1 + val_2) {
+      temp = val_1 + val_2;
+      delay(100);
+    }
+    */
+    
+    lcd.update();
   }
 }
 
@@ -81,8 +79,6 @@ void init_buttons() {
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-  
-  //delay(100);   // pins config delay
 }
 
 /** System Clock Configuration */
