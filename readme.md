@@ -4,7 +4,7 @@ Provides functions for initiating LCD display, setting symbols and numbers. As h
 
 More complete LCD functions description can be found in library header file [lcd_sym_handler.h](https://github.com/Pavllick/iar_lcd_ddm/blob/master/iar_led/Src/lcd_sym_handler/lcd_sym_handler.h).
 
-Usage example can be found in [main.cc](https://github.com/Pavllick/iar_lcd_ddm/blob/master/iar_led/Src/main.cc) file.
+Usage examples can be found in [main.cc](https://github.com/Pavllick/iar_lcd_ddm/blob/master/iar_led/Src/main.cc) file.
 
 ### LCD appearance
 ![LCD](https://github.com/Pavllick/iar_lcd_ddm/blob/master/source/lcd_appearance.jpg?raw=true)
